@@ -74,6 +74,7 @@
    - name: connect
      uri:
         url: http://127.0.0.1/index.html
+        return_content: yes
      register: register_var
 
    - name: connection status
