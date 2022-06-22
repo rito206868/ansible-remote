@@ -10,7 +10,7 @@
   
     - name: debug
       debug:
-        msg: "{{ansible_facts}}"
+        msg: "{{ ansible_facts.all_ipv4_addresses }}"
         
     - name: install all updates
       yum: name='*' state=latest
@@ -39,7 +39,7 @@
         
     - name: html page is created
       copy:
-        content: "<!doctype html>\nWelcome to the demo!\n</html>\n"
+        content: "Welcome to the demo"
         dest: /var/www/html/index.html
     
     - name: firewalld Start
@@ -74,8 +74,6 @@
    - name: connect
      uri:
         url: http://127.0.0.1/index.html
-        return_content: yes
-        status_code: 200
      register: register_var
 
    - name: connection status
