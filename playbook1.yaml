@@ -29,36 +29,47 @@
         
     - name: test html page is installed
       copy:
-        content: "Welcome to the example.com intranet!\n"
+        content: "<!doctype html>\nWelcome to the example.com intranet!\n</html>\n"
         dest: /var/www/html/index.html
     
-    - name: firewalld enabled and running
+    - name: firewalld Start
       service:
          name: firewalld
          enabled: true
          state: started
         
-    - name: firewalld permits http service
+    - name: firewalld permits
       firewalld:
-         service: http
+         service: "{{ item }}"
          permanent: true
          state: enabled
          immediate: yes
+      with_items:
+       - http
+       - https
     
-    - name: httpd enabled and running
+    - name: httpd start
       service:
          name: httpd
          enabled: true
          state: started
     
-- name: Test intranet web server
+- name: Test web server
   hosts: remote
   become: no 
+  
   tasks:
-   - name: connect to intranet web server
+  
+   - name: connect
      uri:
         url: http://127.0.0.1/index.html
         return_content: yes
         status_code: 200
+     register: register_var
+
+   - name: update detail
+     debug:
+        msg: "{{register_var}}"
+     
     
     
