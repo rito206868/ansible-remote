@@ -1,0 +1,20 @@
+---
+- name: test to connect remote
+  hosts: remote
+  become: true
+  become_user: root
+  gather_facts: yes
+  
+  
+  tasks: 
+    - name: debug
+      debug:
+        msg: "{{ansible_facts}}"
+    - name: install updates
+      yum: name='*' state=latest
+    - name: install httpd
+      yum: name='httpd' state=present
+      register: register_var
+    - name: update detail
+      debug:
+        msg: "{{register_var}}"
