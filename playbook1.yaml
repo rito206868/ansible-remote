@@ -1,20 +1,64 @@
 ---
 - name: test to connect remote
   hosts: remote
-  become: true
+  become: yes
   become_user: root
   gather_facts: yes
   
   
   tasks: 
+  
     - name: debug
       debug:
         msg: "{{ansible_facts}}"
-    - name: install updates
+        
+    - name: install all updates
       yum: name='*' state=latest
-    - name: install httpd
-      yum: name='httpd' state=present
+      
+    - name: install httpd and firewall
+      yum:
+        name:
+           - httpd
+           - firewalld
+        state: latest
       register: register_var
+    
     - name: update detail
       debug:
         msg: "{{register_var}}"
+        
+    - name: test html page is installed
+      copy:
+        content: "Welcome to the example.com intranet!\n"
+        dest: /var/www/html/index.html
+    
+    - name: firewalld enabled and running
+      service:
+         name: firewalld
+         enabled: true
+         state: started
+        
+    - name: firewalld permits http service
+      firewalld:
+         service: http
+         permanent: true
+         state: enabled
+         immediate: yes
+    
+    - name: httpd enabled and running
+      service:
+         name: httpd
+         enabled: true
+         state: started
+    
+- name: Test intranet web server
+  hosts: remote
+  become: no 
+  tasks:
+   - name: connect to intranet web server
+     uri:
+        url: http://127.0.0.1/index.html
+        return_content: yes
+        status_code: 200
+    
+    
