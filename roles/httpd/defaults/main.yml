@@ -1,5 +1,5 @@
 ---
 # defaults file for roles/httpd
-httpd_state: latest
-httpd_service_enabled: true 
-httpd_service_state: started
+#httpd_state: latest
+#httpd_service_enabled: true 
+#httpd_service_state: started
