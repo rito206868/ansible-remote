@@ -10,8 +10,8 @@
     name: httpd
     enabled: "{{httpd_service_enabled}}"
     state: "{{httpd_service_state}}"
-  register: register_var
+  register: status_var
 
 - name: httpd state
   debug:
-    msg: "{{register_var.state}}"
+    msg: "{{status_var.state}}"
