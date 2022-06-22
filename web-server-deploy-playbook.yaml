@@ -3,7 +3,7 @@
 - name: Connect and install
   hosts: remote
   become: yes
-  become_user: root
+  #become_user: root
   gather_facts: yes
   
   tasks: 
@@ -32,7 +32,7 @@
 - name: Configure and update
   hosts: remote
   become: yes
-  become_user: root
+  #become_user: root
   gather_facts: yes
   
   tasks: 

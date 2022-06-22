@@ -1,0 +1,12 @@
+---
+# tasks file for roles/httpd
+- name: ensure desired state of httpd
+  yum:
+    name: httpd
+    state: "{{ httpd_state }}"
+
+- name: httpd service state
+  service:
+    name: httpd
+    enabled: "{{httpd_service_enabled}}"
+    state: "{{httpd_service_state}}"
