@@ -6,7 +6,6 @@
   become_user: root
   gather_facts: yes
   
-  
   tasks: 
   
     - name: debug
@@ -82,6 +81,3 @@
    - name: connection status
      debug:
         msg: "{{register_var}}"
-     
-    
-    
