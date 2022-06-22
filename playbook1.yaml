@@ -27,9 +27,9 @@
       debug:
         msg: "{{register_var}}"
         
-    - name: test html page is installed
+    - name: html page is created
       copy:
-        content: "<!doctype html>\nWelcome to the example.com intranet!\n</html>\n"
+        content: "<!doctype html>\nWelcome to the demo!\n</html>\n"
         dest: /var/www/html/index.html
     
     - name: firewalld Start
@@ -54,7 +54,7 @@
          enabled: true
          state: started
     
-- name: Test web server
+- name: web server connect
   hosts: remote
   become: no 
   
@@ -67,7 +67,7 @@
         status_code: 200
      register: register_var
 
-   - name: update detail
+   - name: connection status
      debug:
         msg: "{{register_var}}"
      
