@@ -1,5 +1,6 @@
 ---
-- name: test to connect remote
+# Connect to the service and install needed software/bundle
+- name: Connect and install
   hosts: remote
   become: yes
   become_user: root
@@ -26,6 +27,16 @@
     - name: update detail
       debug:
         msg: "{{register_var}}"
+
+
+# Connect to the service and configure needed software/bundle
+- name: Configure and update
+  hosts: remote
+  become: yes
+  become_user: root
+  gather_facts: yes
+  
+  tasks: 
         
     - name: html page is created
       copy:
@@ -53,7 +64,8 @@
          name: httpd
          enabled: true
          state: started
-    
+
+# Connect to the service and install needed software/bundle    
 - name: web server connect
   hosts: remote
   become: no 
