@@ -66,14 +66,13 @@
 
 # Connect to the service and install needed software/bundle    
 - name: web server connect
-  hosts: remote
   become: no 
-  
+  hosts: localhost
   tasks:
   
    - name: connect
      uri:
-        url: http://127.0.0.1/index.html
+        url: http://{{dest_ip}}/index.html
         return_content: yes
      register: register_var
 
